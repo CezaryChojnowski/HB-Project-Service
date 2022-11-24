@@ -27,6 +27,6 @@ public abstract class HistoryUploadOperationFileManagementService<T1, R1> implem
         final List<T1> extractedObject = importedFilesManipulateService.extractObject(file);
 
         final List<R1> importedTransfers = importedFilesManipulateService.mapToEntities(extractedObject);
-
+        int a=5;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @Component
@@ -24,6 +25,7 @@ public class CsvService<T> {
         Reader reader = new InputStreamReader(multipartfile.getInputStream());
         CsvToBean<T> csvtobean= new CsvToBeanBuilder<T>(reader)
                 .withType(T)
+                .withSkipLines(1)
                 .withSeparator(csvOption.getSeparator())
                 .build();
         return csvtobean.parse();
