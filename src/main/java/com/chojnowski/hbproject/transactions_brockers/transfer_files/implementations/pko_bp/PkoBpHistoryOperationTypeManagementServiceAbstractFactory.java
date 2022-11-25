@@ -20,7 +20,7 @@ public class PkoBpHistoryOperationTypeManagementServiceAbstractFactory {
 
     public OperationTypeManagement getOperationTypeManagementServiceFactory(String typeOperation){
         return switch (typeOperation) {
-            case PkoOperationType.CARD_PAYMENT.getHumanFriendly() -> cardPaymentOperationTypePkoBpHistory;
+            case "" -> cardPaymentOperationTypePkoBpHistory;
             default -> throw new IllegalArgumentException("");
         };
     }

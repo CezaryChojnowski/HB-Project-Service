@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Builder
 @Data
-public class CsvOption {
+public class CsvOption<T> {
     private char separator;
+
+    private final Class<T> aClass;
 }

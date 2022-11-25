@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class PkoCsv {
 
     @CsvCustomBindByPosition(position = 0, converter = LocalDateConverter.class)

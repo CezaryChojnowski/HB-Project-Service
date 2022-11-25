@@ -22,12 +22,12 @@ public abstract class PkoBpHistoryFilesManipulateService implements ImportedFile
 
     private final CsvService<PkoCsv> csvService;
 
-    private final CsvOption csvOption;
+    private final CsvOption<PkoCsv> csvOption;
 
     protected PkoBpHistoryFilesManipulateService(CsvService<PkoCsv> csvService, PkoBpHistoryOperationTypeManagementServiceAbstractFactory pkoBpHistoryOperationTypeManagementServiceAbstractFactory) {
         this.pkoBpHistoryOperationTypeManagementServiceAbstractFactory = pkoBpHistoryOperationTypeManagementServiceAbstractFactory;
         this.csvService = csvService;
-        csvOption = CsvOption.builder()
+        csvOption = CsvOption.<PkoCsv>builder()
                 .separator(',')
                 .build();
     }
@@ -53,10 +53,10 @@ public abstract class PkoBpHistoryFilesManipulateService implements ImportedFile
                 .amount(pkoCsv.getAmount())
                 .currency(pkoCsv.getCurrency())
                 .balanceAfterOperation(pkoCsv.getBalanceAfterOperation())
-                .title(
-                        pkoBpHistoryOperationTypeManagementServiceAbstractFactory
-                                .getOperationTypeManagementServiceFactory(pkoCsv.getDescription())
-                )
+//                .title(
+//                        pkoBpHistoryOperationTypeManagementServiceAbstractFactory
+//                                .getOperationTypeManagementServiceFactory(pkoCsv.getDescription())
+//                )
                 .build();
         return null;
     }

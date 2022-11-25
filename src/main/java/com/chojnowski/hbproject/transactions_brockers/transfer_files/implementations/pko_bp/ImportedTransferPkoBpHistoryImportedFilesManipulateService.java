@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class ImportedTransferPkoBpHistoryImportedFilesManipulateService extends PkoBpHistoryFilesManipulateService {
-    public ImportedTransferPkoBpHistoryImportedFilesManipulateService(CsvService<PkoCsv> csvService, PkoBpHistoryOperationTypeManagementServiceAbstractFactory pkoBpHistoryOperationTypeManagementServiceAbstractFactory;) {
+    public ImportedTransferPkoBpHistoryImportedFilesManipulateService(CsvService<PkoCsv> csvService, PkoBpHistoryOperationTypeManagementServiceAbstractFactory pkoBpHistoryOperationTypeManagementServiceAbstractFactory) {
         super(csvService, pkoBpHistoryOperationTypeManagementServiceAbstractFactory);
     }
 
