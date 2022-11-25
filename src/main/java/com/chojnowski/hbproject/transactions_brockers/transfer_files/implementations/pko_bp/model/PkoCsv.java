@@ -59,15 +59,4 @@ public class PkoCsv {
 
     @CsvBindByPosition(position = 13)
     public String details7;
-
-    public static CardOperation mapToCardOperation(PkoCsv pkoCsv){
-        return CardOperation.builder()
-                .operationDate(pkoCsv.operationDate)
-                .valueDate(pkoCsv.valueDate)
-                .typeOperation(pkoCsv.typeOperation)
-                .amount(pkoCsv.getAmount())
-                .currency(pkoCsv.getCurrency())
-                .balanceAfterOperation(pkoCsv.getBalanceAfterOperation())
-                .build();
-    }
 }

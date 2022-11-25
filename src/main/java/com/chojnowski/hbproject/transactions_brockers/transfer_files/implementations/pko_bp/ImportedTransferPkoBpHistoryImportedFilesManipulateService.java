@@ -2,7 +2,6 @@ package com.chojnowski.hbproject.transactions_brockers.transfer_files.implementa
 
 import com.chojnowski.hbproject.entity.CardOperation;
 import com.chojnowski.hbproject.service.util_service.csv.CsvService;
-import com.chojnowski.hbproject.transactions_brockers.OperationTypeManagementServiceAbstractFactory;
 import com.chojnowski.hbproject.transactions_brockers.transfer_files.implementations.pko_bp.model.PkoCsv;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +9,8 @@ import java.util.List;
 
 @Service
 public class ImportedTransferPkoBpHistoryImportedFilesManipulateService extends PkoBpHistoryFilesManipulateService {
-    public ImportedTransferPkoBpHistoryImportedFilesManipulateService(CsvService<PkoCsv> csvService, OperationTypeManagementServiceAbstractFactory operationTypeManagementServiceAbstractFactory) {
-        super(csvService, operationTypeManagementServiceAbstractFactory);
+    public ImportedTransferPkoBpHistoryImportedFilesManipulateService(CsvService<PkoCsv> csvService, PkoBpHistoryOperationTypeManagementServiceAbstractFactory pkoBpHistoryOperationTypeManagementServiceAbstractFactory;) {
+        super(csvService, pkoBpHistoryOperationTypeManagementServiceAbstractFactory);
     }
 
     @Override

@@ -33,4 +33,6 @@ public class CardOperation {
 
     private BigDecimal balanceAfterOperation;
 
+    private String title;
+
 }

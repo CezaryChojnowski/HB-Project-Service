@@ -3,7 +3,6 @@ package com.chojnowski.hbproject.transactions_brockers.transfer_files.implementa
 import com.chojnowski.hbproject.entity.CardOperation;
 import com.chojnowski.hbproject.service.util_service.csv.CsvOption;
 import com.chojnowski.hbproject.service.util_service.csv.CsvService;
-import com.chojnowski.hbproject.transactions_brockers.OperationTypeManagementServiceAbstractFactory;
 import com.chojnowski.hbproject.transactions_brockers.transfer_files.implementations.pko_bp.model.PkoCsv;
 import com.chojnowski.hbproject.transactions_brockers.transfer_files.logic.ImportedFilesManipulateService;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +18,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public abstract class PkoBpHistoryFilesManipulateService implements ImportedFilesManipulateService<PkoCsv, CardOperation> {
 
-    private final OperationTypeManagementServiceAbstractFactory operationTypeManagementServiceAbstractFactory;
+    private final PkoBpHistoryOperationTypeManagementServiceAbstractFactory pkoBpHistoryOperationTypeManagementServiceAbstractFactory;
 
     private final CsvService<PkoCsv> csvService;
 
     private final CsvOption csvOption;
 
-    protected PkoBpHistoryFilesManipulateService(CsvService<PkoCsv> csvService, OperationTypeManagementServiceAbstractFactory operationTypeManagementServiceAbstractFactory) {
-        this.operationTypeManagementServiceAbstractFactory=operationTypeManagementServiceAbstractFactory;
+    protected PkoBpHistoryFilesManipulateService(CsvService<PkoCsv> csvService, PkoBpHistoryOperationTypeManagementServiceAbstractFactory pkoBpHistoryOperationTypeManagementServiceAbstractFactory) {
+        this.pkoBpHistoryOperationTypeManagementServiceAbstractFactory = pkoBpHistoryOperationTypeManagementServiceAbstractFactory;
         this.csvService = csvService;
         csvOption = CsvOption.builder()
                 .separator(',')
@@ -41,10 +40,24 @@ public abstract class PkoBpHistoryFilesManipulateService implements ImportedFile
     }
 
     public List<CardOperation> mapToEntitiesDefaultValue(List<PkoCsv> extractedObject) {
-        return extractedObject.stream().map(PkoCsv::mapToCardOperation).toList();
+        return extractedObject.stream().map(this::mapToCardOperation).toList();
     }
 
-    public List<CardOperation> test(List<CardOperation> cardOperations){
-        operationTypeManagementServiceAbstractFactory.
+    private CardOperation mapToCardOperation(PkoCsv pkoCsv) {
+
+
+        CardOperation cardOperation = CardOperation.builder()
+                .operationDate(pkoCsv.operationDate)
+                .valueDate(pkoCsv.valueDate)
+                .typeOperation(pkoCsv.typeOperation)
+                .amount(pkoCsv.getAmount())
+                .currency(pkoCsv.getCurrency())
+                .balanceAfterOperation(pkoCsv.getBalanceAfterOperation())
+                .title(
+                        pkoBpHistoryOperationTypeManagementServiceAbstractFactory
+                                .getOperationTypeManagementServiceFactory(pkoCsv.getDescription())
+                )
+                .build();
+        return null;
     }
 }
