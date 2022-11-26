@@ -3,66 +3,96 @@
  */
 package com.chojnowski.hbproject.transactions_brockers.transfer_files.implementations.pko_bp.operation_type_management;
 
-import com.chojnowski.hbproject.dto.Address;
-import com.chojnowski.hbproject.dto.OriginalAmount;
+import com.chojnowski.hbproject.dto.Localization;
 import com.chojnowski.hbproject.transactions_brockers.transfer_files.implementations.pko_bp.model.PkoCsv;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.Arrays;
+
+import static com.chojnowski.hbproject.transactions_brockers.transfer_files.implementations.pko_bp.operation_type_management.CardPaymentPkoBpHistoryUtils.*;
 
 /**
  * @author cchojnowski
  */
-public class CardPaymentOperationTypePkoBpHistory implements OperationTypeManagement{
+@Service
+public class CardPaymentOperationTypePkoBpHistory implements OperationTypeManagement<PkoCsv>{
 
     @Override
+
     public String findTitle(PkoCsv pkoCsv) {
-        return null;
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), TITLE);
     }
 
     @Override
-    public LocalDate findDataOperation(PkoCsv pkoCsv) {
-        return null;
+    public String findDataOperation(PkoCsv pkoCsv) {
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), OPERATION_DATE);
     }
 
     @Override
     public String findMaskCardNumber(PkoCsv pkoCsv) {
-        return null;
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), CARD_NUMBER);
     }
 
     @Override
-    public Address findAddress(PkoCsv pkoCsv) {
-        return null;
-    }
+    public Localization findLocalization(PkoCsv pkoCsv) {
+        String localization = dataExtractor(pkoCsv.getConcatenatedIrregularField(), LOCALIZATION);
 
-    @Override
-    public OriginalAmount findOriginalAmount(PkoCsv pkoCsv) {
-        return null;
+        String localizationRef = addSeparatorToLocalizationString(localization);
+        return Localization.builder()
+                .city(dataExtractor(localizationRef, CITY))
+                .address(dataExtractor(localizationRef, ADDRESS))
+                .country(dataExtractor(localizationRef, COUNTRY))
+                .build();
     }
 
     @Override
     public String findPhoneNumber(PkoCsv pkoCsv) {
-        return null;
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), PHONE_NUMBER);
     }
 
     @Override
     public String findOperation(PkoCsv pkoCsv) {
-        return null;
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), OPERATION);
     }
 
     @Override
     public String findReferenceNumber(PkoCsv pkoCsv) {
-        return null;
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), NUMER_REFERENCYJNY);
     }
 
-    /**
-     * dataExtractor(entry, "Tytuł:"))
-     private String dataExtractor(TransferRow entry, String placeholder) {
-     String line = entry.getOperationData();
-     return Arrays.stream(line.split("\\|"))
-     .filter(part -> part.matches(String.format("^%s(.*?)$", placeholder)))
-     .map(part -> part.replace(placeholder, ""))
-     .findFirst()
-     .orElseThrow(() -> new IllegalArgumentException(String.format("Cannot find %s for entry %s", placeholder, entry.getOperationData())))
-     .strip();
-     }     */
+    @Override
+    public String findRecipientAccount(PkoCsv pkoCsv) {
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), RECIPIENT_ACCOUNT);
+    }
+
+    @Override
+    public String findAtm(PkoCsv pkoCsv) {
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), AMT);
+    }
+
+    @Override
+    public String findRecipientName(PkoCsv pkoCsv) {
+        return dataExtractor(pkoCsv.getConcatenatedIrregularField(), RECIPIENT_NAME);
+    }
+
+    private String dataExtractor(String line, String placeholder) {
+        return Arrays.stream(line.split("\\|"))
+                .filter(part -> part.matches(String.format("^%s(.*?)$", placeholder)))
+                .map(part -> part.replace(placeholder, ""))
+                .findFirst()
+                .orElseGet(() -> "")
+                .strip();
+    }
+
+    private String addSeparatorToLocalizationString(String localization){
+        StringBuilder localizationStringBuilder = new StringBuilder(localization);
+        LIST_OF_LOCALIZATION_PLACE_HOLDERS.forEach(localizationPlaceholder -> {
+            int lozalizationPlaceholderIndex = localization.indexOf(localizationPlaceholder);
+            if(lozalizationPlaceholderIndex!=-1 && lozalizationPlaceholderIndex!=0){
+                localizationStringBuilder.setCharAt(lozalizationPlaceholderIndex - 1, SEPARATOR);
+            }
+        });
+        return localizationStringBuilder.toString();
+    }
+
 }
