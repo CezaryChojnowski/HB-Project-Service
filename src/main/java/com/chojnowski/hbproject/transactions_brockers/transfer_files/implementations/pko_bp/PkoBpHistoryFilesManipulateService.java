@@ -53,11 +53,18 @@ public abstract class PkoBpHistoryFilesManipulateService implements ImportedFile
                 .amount(pkoCsv.getAmount())
                 .currency(pkoCsv.getCurrency())
                 .balanceAfterOperation(pkoCsv.getBalanceAfterOperation())
-//                .title(
-//                        pkoBpHistoryOperationTypeManagementServiceAbstractFactory
-//                                .getOperationTypeManagementServiceFactory(pkoCsv.getDescription())
-//                )
+                .title(cardPaymentOperationTypePkoBpHistory.findTitle(pkoCsv))
+                .cardNumber(cardPaymentOperationTypePkoBpHistory.findMaskCardNumber(pkoCsv))
+                .operation(cardPaymentOperationTypePkoBpHistory.findOperation(pkoCsv))
+                .referenceNumber(cardPaymentOperationTypePkoBpHistory.findReferenceNumber(pkoCsv))
+                .recipientName(cardPaymentOperationTypePkoBpHistory.findRecipientName(pkoCsv))
+                .country(cardPaymentOperationTypePkoBpHistory.findLocalization(pkoCsv).getCountry())
+                .city(cardPaymentOperationTypePkoBpHistory.findLocalization(pkoCsv).getCity())
+                .address(cardPaymentOperationTypePkoBpHistory.findLocalization(pkoCsv).getAddress())
+                .dataOperation(cardPaymentOperationTypePkoBpHistory.findDataOperation(pkoCsv))
+                .phoneNumber(cardPaymentOperationTypePkoBpHistory.findPhoneNumber(pkoCsv))
+                .atm(cardPaymentOperationTypePkoBpHistory.findAtm(pkoCsv))
+                .recipientAccount(cardPaymentOperationTypePkoBpHistory.findRecipientAccount(pkoCsv))
                 .build();
-        return null;
     }
 }
