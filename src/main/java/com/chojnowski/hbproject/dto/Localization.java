@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Builder
 @Data
-public class Address {
+public class Localization {
     private String country;
     private String city;
     private String address;
