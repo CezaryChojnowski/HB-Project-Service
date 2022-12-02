@@ -19,6 +19,7 @@
         <google-api-client.version>2.0.1</google-api-client.version>
         <google-oauth-client-jetty.version>1.34.1</google-oauth-client-jetty.version>
         <google-api-services-gmail.version>v1-rev20220404-2.0.0</google-api-services-gmail.version>
+        <opencsv.version>5.7.1</opencsv.version>
     </properties>
     <dependencies>
         <dependency>
@@ -50,6 +51,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -70,6 +77,11 @@
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-gmail</artifactId>
             <version>${google-api-services-gmail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
         </dependency>
     </dependencies>
 
