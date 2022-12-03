@@ -1,4 +1,4 @@
-package com.chojnowski.hbproject.controller;
+package com.chojnowski.hbproject.controller.internal.v1;
 
 import com.chojnowski.hbproject.enums.Bank;
 import com.chojnowski.hbproject.transactions_brockers.BankTaskService;
@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/package")
+@RequestMapping(path = "internal/api/v1/packages")
 public class PackageController {
 
     private final BankTaskService bankTaskService;

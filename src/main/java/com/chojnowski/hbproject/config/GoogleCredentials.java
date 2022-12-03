@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class GoogleCredentials {
@@ -28,10 +29,10 @@ public class GoogleCredentials {
     @Value("${tokens_directory_path}")
     private String tokensDirectoryPath;
 
-    public static final List<String> REQUIRED_AUTH_SCOPES = List.of(GmailScopes.GMAIL_LABELS, GmailScopes.GMAIL_MODIFY);
+    public static final Set<String> REQUIRED_AUTH_SCOPES = GmailScopes.all();
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
+    public Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
         InputStream inputStream = GoogleCredentials.class.getResourceAsStream(credentialFilePath);
         if (inputStream == null) {
             throw new FileNotFoundException("No file: " + credentialFilePath + " Put it in " + credentialFilePath);
