@@ -41,7 +41,8 @@ public abstract class PkoBpHistoryFilesManipulateService implements ImportedFile
     }
 
     public List<CashOperation> mapToEntitiesDefaultValue(List<PkoCsv> extractedObject) {
-        return extractedObject.stream().map(this::mapToCardOperation).toList();
+//        return extractedObject.stream().map(this::mapToCardOperation).toList();
+        return null;
     }
 
     private CashOperation mapToCardOperation(PkoCsv pkoCsv) {
