@@ -13,9 +13,14 @@ public class BankManagementServiceAbstractFactory {
     private final PkoBpUploadOperationsFileManagementService pkoBpUploadOperationsFileManagementService;
 
     public UploadOperationFileManagementService getTransferFileManagementServiceFactory(Bank bank) {
-        return switch (bank) {
-            case PKO_BP -> pkoBpUploadOperationsFileManagementService;
-            default -> throw new IllegalArgumentException(String.format("%s bank doesn't have any UploadTransferFileManagementService implementations", bank));
+        UploadOperationFileManagementService uploadOperationFileManagementService;
+         switch (bank) {
+             case PKO_BP:
+                 uploadOperationFileManagementService=  pkoBpUploadOperationsFileManagementService;
+                 break;
+             default:
+                 throw new IllegalArgumentException(String.format("%s bank doesn't have any UploadTransferFileManagementService implementations", bank));
         };
+        return uploadOperationFileManagementService;
     }
 }

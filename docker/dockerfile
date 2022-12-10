@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk:17
+FROM openjdk:11
 ENV TZ=Europe/Warsaw
 ADD target/hb-project-service.jar hb-project-service.jar
 ENV SERVER_PORT=8070
