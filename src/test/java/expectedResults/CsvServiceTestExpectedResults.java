@@ -26,7 +26,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("Numer karty: 542165******9497")
                     .details5("")
                     .details6("")
-                    .details7(null)
                     .build(),
             PkoCsv.builder()
                     .operationDate(LocalDate.of(2022, 11, 16))
@@ -42,7 +41,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("Operacja: 7356 00000070021968134")
                     .details5("Numer referencyjny: 7356 00000070021968134")
                     .details6("")
-                    .details7(null)
                     .build(),
             PkoCsv.builder()
                     .operationDate(LocalDate.of(2022, 11, 16))
@@ -58,7 +56,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("Numer karty: 542165******2222")
                     .details5("")
                     .details6("")
-                    .details7(null)
                     .build(),
             PkoCsv.builder()
                     .operationDate(LocalDate.of(2022, 11, 15))
@@ -74,7 +71,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("Numer referencyjny: 00000070016565896")
                     .details5("")
                     .details6("")
-                    .details7(null)
                     .build(),
             PkoCsv.builder()
                     .operationDate(LocalDate.of(2022, 11, 4))
@@ -90,7 +86,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("")
                     .details5("")
                     .details6("")
-                    .details7(null)
                     .build(),
             PkoCsv.builder()
                     .operationDate(LocalDate.of(2022, 11, 2))
@@ -106,7 +101,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("Numer referencyjny: 00000069444446298")
                     .details5("")
                     .details6("")
-                    .details7(null)
                     .build(),
             PkoCsv.builder()
                     .operationDate(LocalDate.of(2022, 10, 25))
@@ -122,7 +116,6 @@ public class CsvServiceTestExpectedResults {
                     .details4("")
                     .details5("")
                     .details6("")
-                    .details7(null)
                     .build()
     );
 
