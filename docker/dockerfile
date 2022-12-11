@@ -2,7 +2,7 @@ FROM openjdk:11
 ENV TZ=Europe/Warsaw
 ADD target/hb-project-service.jar hb-project-service.jar
 ARG GOOGLE_TOKEN=tokens/StoredCredential
-ARG SSL_CERT=src/main/resources/keystore.jks
+ARG SSL_CERT=src/main/resources/server.keystore
 COPY ${GOOGLE_TOKEN} tokens/StoredCredential
 COPY ${SSL_CERT} src/main/resources/server.keystore
 ENV SERVER_PORT=8070
