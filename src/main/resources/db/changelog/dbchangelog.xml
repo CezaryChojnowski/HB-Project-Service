@@ -18,7 +18,7 @@
 
     <changeSet author="Cezary Chojnowski" id="add created_at column to notification table">
         <addColumn tableName="notification">
-            <column name="created_at" type="datetime">
+            <column name="created_at" type="datetime" defaultValue="2022-12-19 00:00:00.000">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
