@@ -4,4 +4,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
 
+    <changeSet author="Cezary Chojnowski" id="create notification table">
+        <createTable tableName="notification">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="subscription" type="VARCHAR(255)"/>
+            <column name="data" type="VARCHAR(255)"/>
+            <column name="message_id" type="VARCHAR(255)"/>
+            <column name="publish_time" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
