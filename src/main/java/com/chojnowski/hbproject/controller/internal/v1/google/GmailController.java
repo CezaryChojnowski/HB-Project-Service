@@ -47,6 +47,17 @@ public class GmailController {
                                 .execute());
     }
 
+    @PostMapping("/stop")
+    public ResponseEntity<?> stop() throws IOException {
+        return ResponseEntity
+                .ok()
+                .body(
+                        gmailService
+                                .users()
+                                .stop(userId)
+                                .execute());
+    }
+
     @PostMapping("/history")
     public ResponseEntity<?> getHistoryList(@RequestBody HistoryListRequest historyListRequest) throws IOException {
         return ResponseEntity
