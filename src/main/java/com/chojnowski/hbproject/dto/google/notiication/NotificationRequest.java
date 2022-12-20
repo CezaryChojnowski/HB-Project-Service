@@ -5,6 +5,8 @@ import com.chojnowski.hbproject.entity.Notification;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class NotificationRequest {
@@ -17,6 +19,7 @@ public class NotificationRequest {
                 .messageId(this.getMessage().getMessageId())
                 .publishTime(this.getMessage().getPublishTime())
                 .subscription(this.getSubscription())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 }

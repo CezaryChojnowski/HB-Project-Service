@@ -15,4 +15,12 @@
             <column name="publish_time" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
+
+    <changeSet author="Cezary Chojnowski" id="add created_at column to notification table">
+        <addColumn tableName="notification">
+            <column name="created_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

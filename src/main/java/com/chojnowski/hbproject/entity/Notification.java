@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 /**
  * @author cchojnowski
@@ -30,6 +31,8 @@ public class Notification {
     private Long id;
 
     private String subscription;
+
+    private LocalDateTime createdAt;
 
     private String data;
 
