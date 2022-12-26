@@ -39,4 +39,8 @@ public class Notification {
     private String messageId;
 
     private String publishTime;
+
+    private String emailAddress;
+
+    private String historyId;
 }

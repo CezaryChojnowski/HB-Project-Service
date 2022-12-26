@@ -23,4 +23,23 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet author="Cezary Chojnowski" id="add email address and historyId columns">
+        <addColumn tableName="notification">
+            <column name="email_address" type="VARCHAR(255)"/>
+        </addColumn>
+        <addColumn tableName="notification">
+            <column name="history_id" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Cezary Chojnowski" id="add message table">
+        <createTable tableName="message">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="message_google_id" type="VARCHAR(255)"/>
+            <column name="data" type="TEXT"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
