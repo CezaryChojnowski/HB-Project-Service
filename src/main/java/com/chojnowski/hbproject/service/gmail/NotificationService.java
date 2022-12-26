@@ -54,13 +54,16 @@ public class NotificationService {
                 List<HistoryMessageAdded> historyMessageAddedList = history.getMessagesAdded();
                 for (int j = 0; j < historyMessageAddedList.size(); j++) {
                     HistoryMessageAdded historyMessageAdded = historyMessageAddedList.get(i);
-                    String messageId = historyMessageAdded.getMessage().getId();
-                    com.google.api.services.gmail.model.Message message1 = gmailService.getMessages(messageId);
-                    String messageData = message1.getPayload().getBody().getData();
-                    byte[] messageDataByteArray = Base64.getUrlDecoder().decode(messageData);
-                    String messageDataResult = new String(messageDataByteArray);
-                    Message gmailMessage = Message.builder().messageGoogleId(messageId).data(messageDataResult).build();
-                    messageService.saveMessage(gmailMessage);
+                    List<String> labels = historyMessageAdded.getMessage().getLabelIds();
+                    if(labels.contains("Label_7685515506865666656")) {
+                        String messageId = historyMessageAdded.getMessage().getId();
+                        com.google.api.services.gmail.model.Message message1 = gmailService.getMessages(messageId);
+                        String messageData = message1.getPayload().getBody().getData();
+                        byte[] messageDataByteArray = Base64.getUrlDecoder().decode(messageData);
+                        String messageDataResult = new String(messageDataByteArray);
+                        Message gmailMessage = Message.builder().messageGoogleId(messageId).data(messageDataResult).build();
+                        messageService.saveMessage(gmailMessage);
+                    }
                 }
             }
         }catch (NullPointerException e){
