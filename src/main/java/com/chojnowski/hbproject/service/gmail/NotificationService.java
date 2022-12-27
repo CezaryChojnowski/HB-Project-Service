@@ -65,20 +65,19 @@ public class NotificationService {
             for (int i = 0; i < listHistoryResponse.size(); i++) {
                 History history = listHistoryResponse.getHistory().get(i);
                 List<com.google.api.services.gmail.model.Message> historyMessageAddedList = history.getMessages();
-                for (int j = 0; j < historyMessageAddedList.size(); j++) {
-                    com.google.api.services.gmail.model.Message message = historyMessageAddedList.get(i);
-                        String messageId = message.getId();
-                        if(!messageService.existsByMessageGoogleId(messageId)) {
-                            com.google.api.services.gmail.model.Message message1 = gmailService.getMessages(messageId);
-                            List<String> labelsId = message1.getLabelIds();
-                            if(labelsId.contains("Label_7685515506865666656")) {
-                                String messageData = message1.getPayload().getParts().get(0).getBody().getData();
-                                byte[] messageDataByteArray = Base64.getUrlDecoder().decode(messageData);
-                                String messageDataResult = new String(messageDataByteArray);
-                                Message gmailMessage = Message.builder().messageGoogleId(messageId).data(messageDataResult).build();
-                                messageService.saveMessage(gmailMessage);
-                            }
+                for (com.google.api.services.gmail.model.Message message : historyMessageAddedList) {
+                    String messageId = message.getId();
+                    if (!messageService.existsByMessageGoogleId(messageId)) {
+                        com.google.api.services.gmail.model.Message message1 = gmailService.getMessages(messageId);
+                        List<String> labelsId = message1.getLabelIds();
+                        if (labelsId.contains("Label_7685515506865666656")) {
+                            String messageData = message1.getPayload().getParts().get(0).getBody().getData();
+                            byte[] messageDataByteArray = Base64.getUrlDecoder().decode(messageData);
+                            String messageDataResult = new String(messageDataByteArray);
+                            Message gmailMessage = Message.builder().messageGoogleId(messageId).data(messageDataResult).build();
+                            messageService.saveMessage(gmailMessage);
                         }
+                    }
                 }
             }
         }catch (NullPointerException | IOException e){

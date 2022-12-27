@@ -8,6 +8,8 @@ import com.chojnowski.hbproject.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author cchojnowski
  */
@@ -18,6 +20,7 @@ public class MessageService {
 
     public void saveMessage(Message message){
         if(!existsByMessageGoogleId(message.getMessageGoogleId())){
+            message.setCreatedAt(LocalDateTime.now());
             messageRepository.save(message);
         }
     }
