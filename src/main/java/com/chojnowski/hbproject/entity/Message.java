@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * @author cchojnowski
@@ -28,4 +29,6 @@ public class Message {
     private String messageGoogleId;
 
     private String data;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

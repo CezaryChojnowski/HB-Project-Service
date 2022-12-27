@@ -42,4 +42,12 @@
             <column name="data" type="TEXT"/>
         </createTable>
     </changeSet>
+
+    <changeSet author="Cezary Chojnowski" id="add created_at column to message table">
+        <addColumn tableName="message">
+            <column name="created_at" type="datetime" defaultValue="2022-12-26 00:00:00.000">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

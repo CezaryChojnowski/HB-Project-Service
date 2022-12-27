@@ -17,8 +17,12 @@ public class MessageService {
     private final MessageRepository messageRepository;
 
     public void saveMessage(Message message){
-        if(!messageRepository.existsByMessageGoogleId(message.getMessageGoogleId())){
+        if(!existsByMessageGoogleId(message.getMessageGoogleId())){
             messageRepository.save(message);
         }
+    }
+
+    public boolean existsByMessageGoogleId(String messageGoogleId){
+        return messageRepository.existsByMessageGoogleId(messageGoogleId);
     }
 }
