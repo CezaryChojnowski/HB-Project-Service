@@ -40,6 +40,7 @@ public class NotificationService {
         String dataFromBase64Result = new String(dataFromBase64ByteArray);
         NotificationData notificationData = new Gson().fromJson(dataFromBase64Result, NotificationData.class);
         Notification notification = notificationRepository.save(mapToNotification(notificationRequest, notificationData));
+        log.info(String.format("Try save notification : %s %s %s",notificationRequest.getMessage().getMessageId(), notificationRequest.getMessage().getPublishTime(), notificationData.getHistoryId()));
         getDataFromMessage(notificationData);
         return notification;
     }
@@ -62,26 +63,31 @@ public class NotificationService {
                     .startHistoryId(new BigInteger(notificationData.getHistoryId()))
                     .build();
             ListHistoryResponse listHistoryResponse = gmailService.getHistoryList(historyListRequest);
-            for (int i = 0; i < listHistoryResponse.size(); i++) {
-                History history = listHistoryResponse.getHistory().get(i);
-                List<com.google.api.services.gmail.model.Message> historyMessageAddedList = history.getMessages();
-                for (com.google.api.services.gmail.model.Message message : historyMessageAddedList) {
-                    String messageId = message.getId();
-                    if (!messageService.existsByMessageGoogleId(messageId)) {
-                        com.google.api.services.gmail.model.Message message1 = gmailService.getMessages(messageId);
-                        List<String> labelsId = message1.getLabelIds();
-                        if (labelsId.contains("Label_7685515506865666656")) {
-                            String messageData = message1.getPayload().getParts().get(0).getBody().getData();
-                            byte[] messageDataByteArray = Base64.getUrlDecoder().decode(messageData);
-                            String messageDataResult = new String(messageDataByteArray);
-                            Message gmailMessage = Message.builder().messageGoogleId(messageId).data(messageDataResult).build();
-                            messageService.saveMessage(gmailMessage);
+            List<History> histories = listHistoryResponse.getHistory();
+            if(histories!=null) {
+                log.info("History list is not null");
+                for (int i = 0; i < histories.size(); i++) {
+                    History history = listHistoryResponse.getHistory().get(i);
+                    List<com.google.api.services.gmail.model.Message> historyMessageAddedList = history.getMessages();
+                    for (com.google.api.services.gmail.model.Message message : historyMessageAddedList) {
+                        String messageId = message.getId();
+                        if (!messageService.existsByMessageGoogleId(messageId)) {
+                            log.info(String.format("Try get message from gmail: %s", messageId));
+                            com.google.api.services.gmail.model.Message message1 = gmailService.getMessages(messageId);
+                            List<String> labelsId = message1.getLabelIds();
+                            if (labelsId.contains("Label_7685515506865666656")) {
+                                String messageData = message1.getPayload().getParts().get(0).getBody().getData();
+                                byte[] messageDataByteArray = Base64.getUrlDecoder().decode(messageData);
+                                String messageDataResult = new String(messageDataByteArray);
+                                Message gmailMessage = Message.builder().messageGoogleId(messageId).data(messageDataResult).build();
+                                messageService.saveMessage(gmailMessage);
+                            }
                         }
                     }
                 }
             }
         }catch (NullPointerException | IOException e){
-            log.error("error", e);
+            log.error(e.getMessage());
         }
     }
 }
